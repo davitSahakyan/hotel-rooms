@@ -20,7 +20,6 @@ class RoomProvider extends React.Component {
             sortedRooms: rooms,
             loading: false
         });
-        console.log(rooms);
     }
 
     formatData = items => {

@@ -8,7 +8,6 @@ export default class FeaturedRooms extends React.Component {
     static contextType = RoomContext;
     render() {
         const { loading, featuredRooms: rooms } = this.context;
-        console.log(rooms);
         const newRooms = rooms.map(room => {
             return <Room key={room.id} room={room} />;
         });
@@ -18,7 +17,6 @@ export default class FeaturedRooms extends React.Component {
                 <div className="featured-rooms-center">
                     {loading ? <Loading /> : newRooms}
                 </div>
-                <Loading />
             </section>
         );
     }
