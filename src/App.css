@@ -340,4 +340,9 @@ h6 {
     font-weight: 700;
     letter-spacing: var(--mainSpacing);
 }
+.error {
+    text-align: center;
+    text-transform: uppercase;
+    margin: 5rem 0;
+}
 /* end of room  */
