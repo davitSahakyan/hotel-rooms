@@ -346,3 +346,19 @@ h6 {
     margin: 5rem 0;
 }
 /* end of room  */
+/* single room */
+.single-room {
+    padding: 5rem 0 0 0;
+}
+.single-room-images {
+    width: 80vw;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-row-gap: 2rem;
+    grid-column-gap: 50px;
+}
+.single-room-images img {
+    width: 100%;
+    display: block;
+}
