@@ -1,4 +1,5 @@
 import React from "react";
+import Room from "./Room";
 
 export default function RoomsList({ rooms }) {
     if (rooms.length === 0) {
@@ -8,5 +9,13 @@ export default function RoomsList({ rooms }) {
             </div>
         );
     }
-    return <div>Hello from roomlist</div>;
+    return (
+        <section className="roomslist">
+            <div className="roomlist-center">
+                {rooms.map(item => {
+                    return <Room key={item.id} room={item} />;
+                })}
+            </div>
+        </section>
+    );
 }
