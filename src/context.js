@@ -54,13 +54,39 @@ class RoomProvider extends React.Component {
 
     handleChange = event => {
         const type = event.target.type;
+        const value =
+            event.type === "checkbox"
+                ? event.target.checked
+                : event.target.value;
         const name = event.target.name;
-        const value = event.target.value;
+        this.setState(
+            {
+                [name]: value
+            },
+            this.filterRooms
+        );
         console.log(type, name, value);
     };
 
     filterRooms = () => {
-        console.log("hello");
+        let {
+            rooms,
+            type,
+            capacity,
+            price,
+            minSize,
+            maxSize,
+            breakfast,
+            pets
+        } = this.state;
+
+        let tempRooms = [...rooms];
+        if (type !== "all") {
+            tempRooms = tempRooms.filter(room => room.type === type);
+        }
+        this.setState({
+            sortedRooms: tempRooms
+        });
     };
 
     render() {
