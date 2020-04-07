@@ -1,5 +1,9 @@
 import React from "react";
 import items from "./data";
+import Client from "./Contentful";
+Client.getEntries({ content_type: "hotelRooms" }).then((response) =>
+    console.log(response.items)
+);
 
 const RoomContext = React.createContext();
 
@@ -17,14 +21,14 @@ class RoomProvider extends React.Component {
         minSize: 0,
         maxSize: 0,
         breakfast: false,
-        pets: false
+        pets: false,
     };
 
     componentDidMount() {
         let rooms = this.formatData(items);
-        let featuredRooms = rooms.filter(room => room.featured === true);
-        let maxPrice = Math.max(...rooms.map(item => item.price));
-        let maxSize = Math.max(...rooms.map(item => item.size));
+        let featuredRooms = rooms.filter((room) => room.featured === true);
+        let maxPrice = Math.max(...rooms.map((item) => item.price));
+        let maxSize = Math.max(...rooms.map((item) => item.size));
         this.setState({
             rooms,
             featuredRooms,
@@ -32,27 +36,29 @@ class RoomProvider extends React.Component {
             loading: false,
             price: maxPrice,
             maxPrice,
-            maxSize
+            maxSize,
         });
     }
 
-    formatData = items => {
-        let tempItems = items.map(item => {
+    formatData = (items) => {
+        let tempItems = items.map((item) => {
             let id = item.sys.id;
-            let images = item.fields.images.map(image => image.fields.file.url);
+            let images = item.fields.images.map(
+                (image) => image.fields.file.url
+            );
             let room = { ...item.fields, images, id };
             return room;
         });
         return tempItems;
     };
 
-    getRoom = slug => {
+    getRoom = (slug) => {
         let tempRooms = [...this.state.rooms];
-        const room = tempRooms.find(item => item.slug === slug);
+        const room = tempRooms.find((item) => item.slug === slug);
         return room;
     };
 
-    handleChange = event => {
+    handleChange = (event) => {
         const target = event.target;
         const value =
             target.type === "checkbox"
@@ -61,7 +67,7 @@ class RoomProvider extends React.Component {
         const name = event.target.name;
         this.setState(
             {
-                [name]: value
+                [name]: value,
             },
             this.filterRooms
         );
@@ -77,7 +83,7 @@ class RoomProvider extends React.Component {
             minSize,
             maxSize,
             breakfast,
-            pets
+            pets,
         } = this.state;
         // all rooms
         let tempRooms = [...rooms];
@@ -86,29 +92,29 @@ class RoomProvider extends React.Component {
         price = parseInt(price);
         // filter by type
         if (type !== "all") {
-            tempRooms = tempRooms.filter(room => room.type === type);
+            tempRooms = tempRooms.filter((room) => room.type === type);
         }
         // filter by capacity
         if (capacity !== 1) {
-            tempRooms = tempRooms.filter(room => room.capacity >= capacity);
+            tempRooms = tempRooms.filter((room) => room.capacity >= capacity);
         }
         // filter by price
-        tempRooms = tempRooms.filter(room => room.price <= price);
+        tempRooms = tempRooms.filter((room) => room.price <= price);
         // filter by size
         tempRooms = tempRooms.filter(
-            room => room.size >= minSize && room.size <= maxSize
+            (room) => room.size >= minSize && room.size <= maxSize
         );
         // filter by breakfast
         if (breakfast) {
-            tempRooms = tempRooms.filter(room => room.breakfast === true);
+            tempRooms = tempRooms.filter((room) => room.breakfast === true);
         }
         // filter by pets
         if (pets) {
-            tempRooms = tempRooms.filter(room => room.pets === true);
+            tempRooms = tempRooms.filter((room) => room.pets === true);
         }
         // change state
         this.setState({
-            sortedRooms: tempRooms
+            sortedRooms: tempRooms,
         });
     };
 
@@ -118,7 +124,7 @@ class RoomProvider extends React.Component {
                 value={{
                     ...this.state,
                     getRoom: this.getRoom,
-                    handleChange: this.handleChange
+                    handleChange: this.handleChange,
                 }}
             >
                 {this.props.children}
